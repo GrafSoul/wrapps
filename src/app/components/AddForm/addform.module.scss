@@ -1,0 +1,75 @@
+.addNewServices {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-top: 13px;
+	margin-left: -5px;
+	margin-bottom: 5px;
+	margin-right: 10px;
+
+	.newServicesUrlWrap {
+		width: 100%;
+		margin-right: 25px;
+	}
+
+	.newServicesSubmitWrap {
+			width: 60px;
+	}
+	.newServicesUrl {
+		display: block;
+		width: 100%;
+		padding: 6px 6px 6px 10px;
+		font-size: 18px;
+		background-color: #282c34;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		color: #b6b8bd;
+		border-bottom: 1px solid #9da5b4;
+
+		&::selection {
+			background-color: #b6beca;
+		}
+	}
+
+	.newServicesSubmit {
+		display: inline-block;
+		background-color: #282c34;
+		color: #9da5b4;
+		font-size: 18px;
+		padding: 5px 15px;
+		border: 1px solid #9da5b4;
+		border-radius: 6px;
+		cursor: pointer;
+
+		&:disabled {
+			background-color: #1c1c1d;
+			opacity: .5;
+		}
+
+		&:hover {
+			color: #fff;
+			border: 1px solid #fff;
+			background-color: #079607 !important;
+		}
+	}
+
+	.newServicesSubmitDisabled {
+			display: inline-block;
+			background-color: #1c1c1d;
+			opacity: .5;
+			color: #9da5b4;
+			font-size: 18px;
+			padding: 5px 15px;
+			border: 1px solid #9da5b4;
+			border-radius: 6px;
+			cursor: default;
+	}
+
+}
+
+input::placeholder {
+	font-size: 18px;
+	color: #5b616b;
+}

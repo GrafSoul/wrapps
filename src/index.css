@@ -1,0 +1,154 @@
+/* RESET */
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+  box-sizing: inherit;
+}
+
+a:active,
+a:focus {
+	outline: none;
+}
+
+input,
+textarea {
+	outline: none;
+}
+
+input:active,
+textarea:active {
+	outline: none;
+}
+
+:focus {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+}
+
+textarea {
+	resize: vertical;
+}
+
+textarea {
+	resize: horizontal;
+}
+
+button:active,
+button:focus {
+	outline: none !important;
+}
+
+button::-moz-focus-inner {
+	border: 0 !important;
+}
+
+::selection {
+	background-color: transparent;
+}
+
+/* FONTS */
+@font-face {
+	font-family: 'SFUIText';
+  src: asset-url('/app/font/SFUIText-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+	font-family: 'SFUIText';
+	src: asset-url('/app/font/SFUIText-Bold.ttf') format('truetype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'SFUIProDisplay';
+	src: asset-url('/app/font/SFProDisplay-Regular.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'SFUIProDisplay';
+	src: asset-url('/app/font/SFProDisplay-Bold.ttf') format('truetype');
+	font-weight: bold;
+}
+
+/* BASE STYLES */
+html {
+	width: 100vw;
+	height: 100vh;
+	background-color: #282c34;
+}
+
+body {
+	font-family: "SFUIText", sans-serif;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 1.7;
+}
+
+.modal.show .modal-dialog {
+	padding: 0;
+	border: none;
+	position: absolute;
+	right: 20px;
+	left: 20px;
+	top: 45px;
+
+	background-color: #282c34 !important;
+}
+
+.modal-body {
+	padding: 1rem 1rem 0rem;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.4;
+	color: #b6b8bd;
+	text-align: center;
+	border: none !important;
+	background-color: #282c34 !important;
+	word-wrap: break-word;
+}
+
+.modal-footer {
+	justify-content: center;
+	border: none !important;
+	background-color: #282c34 !important;
+	text-align: center;
+}
+
+.btn.btn-primary {
+	display: inline-block;
+	background-color: #282c34;
+	color: #9da5b4;
+	padding: 5px 15px;
+	border: 1px solid #9da5b4;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn.btn-primary:hover {
+	color: #fff;
+	border: 1px solid #fff;
+	background-color: #f50a3d !important;
+}
+
+.btn.btn-secondary {
+	display: inline-block;
+	background-color: #282c34;
+	color: #9da5b4;
+	padding: 5px 15px;
+	border: 1px solid #9da5b4;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn.btn-secondary:hover {
+	color: #fff;
+	border: 1px solid #fff;
+	background-color: #079607 !important;
+}
+

@@ -1,0 +1,60 @@
+.layout {	
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	z-index:20;
+	-webkit-user-select: none;
+	background-color: #282c34;
+	overflow: hidden;
+
+	.topbar {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 0 0 0 10px;
+		background-color: #21252b;
+		-webkit-app-region: drag;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		color: #fff;
+		z-index:10;
+		transition: all .3s ease;
+	}
+
+	.title {
+		margin-top: 3px;
+		font-family: "SFUIProDisplay",
+		sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		color: #9da5b4;
+	}
+
+	.title i {
+		margin-right: 10px;
+	}
+
+	.btnWindow,
+	.closeWindow {
+		font-size: 16px;
+		padding: 4px 11px;
+		cursor: pointer;
+		-webkit-app-region: no-drag;
+		background-color: #21252b;
+		color: #9da5b4;
+		border: none;
+		outline: none;
+		transition: all .3s ease;
+
+		&:hover {
+			color: #fff;
+			background-color: #37373b;
+		}
+	}
+
+	.closeWindow:hover {
+				background-color: #f50a3d !important;
+	}
+}

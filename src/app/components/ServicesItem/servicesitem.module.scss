@@ -1,0 +1,143 @@
+.service {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 10px 10px 5px;
+	border-bottom: 1px solid #161616;
+
+	h3 {
+		color: #b6b8bd;
+		font-family: "SFUIProDisplay",
+		sans-serif;
+		font-weight: bold;
+		font-size: 17px;
+		line-height: 1.3;
+		padding: 0 20px 0 0;
+		margin: 0 0 3px;
+		word-wrap: break-word;
+	}
+
+	.info {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.text {
+		max-width: 145px;
+		overflow: hidden;
+		display:flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		color: #8b8e96;
+		font-size: 14px;
+		line-height: 1.3;
+		padding: 0 30px 0 0;
+		margin: 0;
+		word-wrap: break-word;
+	}
+
+	.open {
+			display: block;
+			margin-left: 30px;
+			color: #75777c;
+			padding: 0;
+			margin: 0;
+			font-size: 34px;
+			cursor: pointer;			
+
+			&:hover {
+				color: #079607;
+			}
+	}
+	.delete {
+		margin: 1px 7px  0 0;
+		display: inline-block;
+		font-size: 12px;
+		cursor: pointer;
+
+		i {
+			margin-top:2px;
+			display: block;
+		}
+
+		&:hover {
+			color: #f50a3d;
+		}
+	}
+}
+
+.slider {
+	width: 80px;
+	height: 26px;
+	position: relative;
+	background: #21252b;
+	margin: 20px auto;
+	position: relative;
+	border-radius: 50px;
+	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+
+	.plug {
+		display: block;
+		background-color: transparent;
+		opacity: .3;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		width: 80px;
+		height: 26px;
+		z-index: 2000;
+		cursor: pointer;	
+	}
+	&:after {
+		content: 'OFF';
+		color: #111;
+		position: absolute;
+		right: 10px;
+		z-index: 100;
+		font: 12px/26px Arial, sans-serif;
+		font-weight: bold;
+		text-shadow: 1px 1px 0px rgba(255, 255, 255, .15);
+	}
+
+	&:before {
+		content: 'ON';
+		color: #079607;
+		position: absolute;
+		left: 10px;
+		z-index: 100;
+		font: 12px/26px Arial, sans-serif;
+		font-weight: bold;
+	}
+
+	label {
+		display: block;
+		width: 34px;
+		height: 20px;
+		cursor: pointer;
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		z-index: 1000;
+		background: #75777c;
+		background: linear-gradient(to top, #a5a7ad 0%, #8d8f96 40%, #75777c 100%);
+		border-radius: 50px;
+		transition: all 0.4s ease;
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+	}
+
+	input[type=checkbox] {
+		visibility: hidden;
+
+		&:checked+label {
+			left: 43px;
+			background: linear-gradient(to top, #06b106 0%, #08a108 40%, #037c03 100%);
+		}
+	}
+}
+

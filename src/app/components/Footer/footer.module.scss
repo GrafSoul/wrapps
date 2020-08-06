@@ -1,0 +1,94 @@
+.removeServices {
+	display: flex;
+	justify-content: center;
+	padding: 15px;
+	position: fixed;
+	bottom:0;
+	left: 0;
+	right: 0;  
+	background-color: #21252b;
+
+	.btnClearStorage {
+		margin: 0 5px;
+		display: block;
+		background-color: #21252b;
+		color: #5b616b;
+		opacity: 1;
+		font-size: 16px;
+		padding: 5px 10px;
+		border: 1px solid #5b616b;
+		border-radius: 6px;
+		cursor: pointer;
+
+		&:hover {
+			color: #fff;
+			border: 1px solid #fff;
+			background-color: #f50a3d !important;
+		}
+	}
+	.btnClearStorageDisabled {
+		margin: 0 5px;
+		display: block;
+		opacity: .2;
+		background-color: #1c1c1d;
+		color: #9da5b4;
+		font-size: 16px;
+		padding: 5px 10px;
+		border: 1px solid #9da5b4;
+		border-radius: 6px;
+		cursor: default;
+	}
+
+	.btnSearchServices {
+		margin: 0 5px;
+		display: block;
+		background-color: #21252b;
+		color: #5b616b;
+		opacity: 1;
+		font-size: 16px;
+		padding: 5px 13px;
+		border: 1px solid #5b616b;
+		border-radius: 6px;
+		cursor: pointer;
+
+		&:hover {
+			color: #fff;
+			border: 1px solid #fff;
+		}
+	}
+
+	.btnSearchServicesActive {
+		margin: 0 5px;
+		display: block;
+		color: #079607;
+		border: 1px solid #079607;
+		background-color: #21252b;
+		font-size: 16px;
+		padding: 5px 13px;
+		border-radius: 6px;
+		cursor: pointer;
+
+		&:hover {
+			color: #fff;
+			border: 1px solid #fff;
+		}
+	}
+
+	.btnExchangeServices {
+			margin: 0 5px;
+			display: block;
+			background-color: #21252b;
+			color: #5b616b;
+			opacity: 1;
+			font-size: 16px;
+			padding: 5px 13px;
+			border: 1px solid #5b616b;
+			border-radius: 6px;
+			cursor: pointer;
+
+			&:hover {
+				color: #fff;
+				border: 1px solid #fff;
+			}
+	}
+}
