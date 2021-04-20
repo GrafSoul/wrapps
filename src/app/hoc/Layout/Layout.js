@@ -9,7 +9,7 @@ const mainWindow = remote.getCurrentWindow();
 
 class Layout extends Component {
     state = {
-        title: 'WrappS 1.1.0',
+        title: 'WrappS 1.2.0',
         showSideDrawer: false,
         statusWindow: false,
     };

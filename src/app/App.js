@@ -14,12 +14,11 @@ import InputSearch from './components/InputSearch/InputSearch';
 import SearchServices from './components/SearchServices/SearchServices';
 
 const electron = window.require('electron');
-const ipcRenderer  = electron.ipcRenderer;
+const ipcRenderer = electron.ipcRenderer;
 
 const parser = new DOMParser();
 
 function App() {
-
     const [services, setServices] = useState([]);
     const [link, setLink] = useState('');
     const [isActiveBtn, setIsActiveBtn] = useState(false);
@@ -32,25 +31,24 @@ function App() {
     const [isSearch, setIsSearch] = useState(false);
 
     useEffect(() => {
-
         const getServices = JSON.parse(localStorage.getItem('services'));
         if (getServices === null) {
             localStorage.setItem('services', JSON.stringify([]));
         } else {
-            const newServices = getServices.map(item => {
-                return { ...item, active: false }
-            })
-            localStorage.setItem('services', JSON.stringify(newServices)); 
+            const newServices = getServices.map((item) => {
+                return { ...item, active: false };
+            });
+            localStorage.setItem('services', JSON.stringify(newServices));
             setServices(newServices);
         }
-    }, [])
+    }, []);
 
     const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
 
-    return result;
+        return result;
     };
 
     const onDragEnd = (result) => {
@@ -61,88 +59,91 @@ function App() {
         const items = reorder(
             services,
             result.source.index,
-            result.destination.index
+            result.destination.index,
         );
 
         setServices(items);
-        localStorage.setItem('services', JSON.stringify(items)); 
-    }
-    
+        localStorage.setItem('services', JSON.stringify(items));
+    };
 
-    ipcRenderer.on('removeWin', (event, id) => { 
-        setStatus(!status)
-        updateServices(id);        
-    })
-     
+    ipcRenderer.on('removeWin', (event, id) => {
+        setStatus(!status);
+        updateServices(id);
+    });
+
     const updateServices = (id) => {
+        const stateServices = services;
+        let objIndex = stateServices.findIndex((service) => service.id === id);
 
-        const stateServices = services;       
-        let objIndex = stateServices.findIndex(service => service.id === id);
-
-        if ((objIndex >= 0) && stateServices[objIndex].active !== false) {
-            stateServices[objIndex].active = false; 
+        if (objIndex >= 0 && stateServices[objIndex].active !== false) {
+            stateServices[objIndex].active = false;
             setServices(stateServices);
             localStorage.setItem('services', JSON.stringify(stateServices));
-        }  
-    }
+        }
+    };
 
     const handleNewLinkUrl = (event) => {
-        
-        setLink(event.target.value); 
-               
+        setLink(event.target.value);
+
         if (event.target.validity.valid) {
-            setIsActiveBtn(true);                      
-        } else { 
+            setIsActiveBtn(true);
+        } else {
             setIsActiveBtn(false);
         }
     };
 
-    const handleSearchTitle = (event) => {        
+    const handleSearchTitle = (event) => {
         setSearch(event.target.value);
     };
 
     const handleNewLinkForm = (event) => {
         event.preventDefault();
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const inspectServices = services.find(service => {
+        const proxyurl = 'https://cors.bridged.cc/';
+        const inspectServices = services.find((service) => {
             let currentLink = link;
-            if (currentLink[currentLink.length - 1] === '/') currentLink = currentLink.slice(0, -1);
-            return service.link === currentLink
+            if (currentLink[currentLink.length - 1] === '/')
+                currentLink = currentLink.slice(0, -1);
+            return service.link === currentLink;
         });
         if (!inspectServices) {
-            const resultParseContent = fetch(proxyurl + link)
-                .then(response => response.text())
+            const resultParseContent = fetch(link)
+                .then((response) => response.text())
                 .then(parseResponse)
                 .then(findTitle)
-                .then(title => storeLink(title, link))
+                .then((title) => storeLink(title, link))
                 .then(clearForm)
-                .catch(error => handleError(error, link));
-            return resultParseContent;            
-        } else { 
-            const errorLink = { message: "Service is listed" };
-            clearForm()
-            handleError(errorLink, link)
+                .catch((error) => handleError(error, link));
+            return resultParseContent;
+        } else {
+            const errorLink = { message: 'Service is listed' };
+            clearForm();
+            handleError(errorLink, link);
             return null;
-        } 
-    };
-    
-    const parseResponse = text => {   
-        return parser.parseFromString(text, "text/html");
+        }
     };
 
-    const findTitle = nodes => {
-        return nodes.querySelector("title").innerText;
+    const parseResponse = (text) => {
+        return parser.parseFromString(text, 'text/html');
+    };
+
+    const findTitle = (nodes) => {
+        return nodes.querySelector('title').innerText;
     };
 
     const storeLink = (title, url) => {
-
-        const id = newId()
+        const id = newId();
         const currentServices = services;
-        let currentLink = url
+        let currentLink = url;
 
-        if (currentLink[currentLink.length - 1] === '/') currentLink = currentLink.slice(0, -1)
+        if (currentLink[currentLink.length - 1] === '/')
+            currentLink = currentLink.slice(0, -1);
 
-        currentServices.unshift({ id: id, title: title, link: currentLink, active: false })
+        currentServices.unshift({
+            id: id,
+            title: title,
+            link: currentLink,
+            active: false,
+        });
         setStatus(false);
         setServices(currentServices);
         localStorage.setItem('services', JSON.stringify(currentServices));
@@ -154,147 +155,147 @@ function App() {
     };
 
     const handleError = (error, url) => {
-        setIsError(`There was an issue adding "${url}": ${error.message}`.trim());
+        setIsError(
+            `There was an issue adding "${url}": ${error.message}`.trim(),
+        );
         setTimeout(() => setIsError(''), 5000);
     };
 
     const handelModalStorage = () => {
         setModalMessage('all services');
-        toggleModal()
+        toggleModal();
     };
 
-    const handelModalService = (link, id) => { 
+    const handelModalService = (link, id) => {
         setModalMessage(link);
-        setRemoveId(id)
-        toggleModal()
+        setRemoveId(id);
+        toggleModal();
     };
 
-    const removeContent = (id) => { 
+    const removeContent = (id) => {
         if (id !== '') {
-            const currentServices = services.filter(service => id !== service.id);
+            const currentServices = services.filter(
+                (service) => id !== service.id,
+            );
             setServices(currentServices);
             localStorage.setItem('services', JSON.stringify(currentServices));
             setModalMessage('');
-            setRemoveId('')
+            setRemoveId('');
             toggleModal();
-        } else { 
+        } else {
             localStorage.clear();
-            setServices([]); 
+            setServices([]);
             setModalMessage('');
             toggleModal();
         }
-    }
+    };
 
-    const toggleModal = () => {        
+    const toggleModal = () => {
         setModal(!modal);
-    }   
-    
-    const toggleIsSearch = () => {        
+    };
+
+    const toggleIsSearch = () => {
         setIsSearch(!isSearch);
-    } 
+    };
 
     const linksSection = (title, url, id) => {
+        const newServices = services;
 
-        const newServices = services       
-        
-        let objIndex = newServices.findIndex((service => service.link === url));        
+        let objIndex = newServices.findIndex((service) => service.link === url);
 
-        if (newServices[objIndex].active === false &&
-            newServices[objIndex].id === id) { 
-            
-            newServices[objIndex].active = true;            
-            setStatus(!status)
-            setServices(newServices)
+        if (
+            newServices[objIndex].active === false &&
+            newServices[objIndex].id === id
+        ) {
+            newServices[objIndex].active = true;
+            setStatus(!status);
+            setServices(newServices);
             localStorage.setItem('services', JSON.stringify(newServices));
             ipcRenderer.send('openWindow', title, url, id);
-
-        } else {  
-            
+        } else {
             newServices[objIndex].active = false;
-            setStatus(!status)
-            setServices(newServices)
+            setStatus(!status);
+            setServices(newServices);
             localStorage.setItem('services', JSON.stringify(newServices));
-            ipcRenderer.send('closeWindow', id);                      
-        }        
-    }
-    
-    const reverseServices = () => {  
+            ipcRenderer.send('closeWindow', id);
+        }
+    };
+
+    const reverseServices = () => {
         const reversServices = services.reverse();
-        setServices(reversServices)
+        setServices(reversServices);
         localStorage.setItem('services', JSON.stringify(reversServices));
         setStatus(!status);
-    } 
+    };
 
     const sortServicesDown = () => {
-        const reversServices  = services.slice(0);
-        reversServices.sort(function(a,b) {
+        const reversServices = services.slice(0);
+        reversServices.sort(function (a, b) {
             let x = a.title.toLowerCase();
             let y = b.title.toLowerCase();
             return x < y ? -1 : x > y ? 1 : 0;
         });
-        setServices(reversServices)
+        setServices(reversServices);
         localStorage.setItem('services', JSON.stringify(reversServices));
         setStatus(!status);
-    }
+    };
 
     const sortServicesUp = () => {
-        const reversServices  = services.slice(0);
-        reversServices.sort(function(a,b) {
+        const reversServices = services.slice(0);
+        reversServices.sort(function (a, b) {
             let x = a.title.toLowerCase();
             let y = b.title.toLowerCase();
             return x < y ? 1 : x > y ? -1 : 0;
         });
-        setServices(reversServices)
+        setServices(reversServices);
         localStorage.setItem('services', JSON.stringify(reversServices));
         setStatus(!status);
-    } 
+    };
 
     return (
         <Layout>
             <div className={classes.content}>
-                
-                {isSearch && 
+                {isSearch && (
                     <>
-                    <InputSearch
-                        handleSearchTitle={handleSearchTitle} />
+                        <InputSearch handleSearchTitle={handleSearchTitle} />
 
                         <DragDropContext onDragEnd={onDragEnd}>
-                    
-                        <SearchServices  
-                            status={status} 
-                            search={search}
-                            services={services}
-                            modalService={handelModalService}
-                            linksSection={linksSection} />
-                    
+                            <SearchServices
+                                status={status}
+                                search={search}
+                                services={services}
+                                modalService={handelModalService}
+                                linksSection={linksSection}
+                            />
                         </DragDropContext>
                     </>
-                }  
-                
-                {!isSearch && 
+                )}
+
+                {!isSearch && (
                     <>
                         <ErrorMessages
                             isError={isError}
-                            setIsError={setIsError} />
-                        
-                        <AddForm    
+                            setIsError={setIsError}
+                        />
+
+                        <AddForm
                             link={link}
                             isActiveBtn={isActiveBtn}
                             handleNewLinkUrl={handleNewLinkUrl}
-                            handleNewLinkForm={handleNewLinkForm} />
-                        
+                            handleNewLinkForm={handleNewLinkForm}
+                        />
+
                         <DragDropContext onDragEnd={onDragEnd}>
-                        
-                            <Services  
-                                status={status}    
+                            <Services
+                                status={status}
                                 services={services}
                                 modalService={handelModalService}
-                                linksSection={linksSection} />
-                        
+                                linksSection={linksSection}
+                            />
                         </DragDropContext>
                     </>
-                } 
-                
+                )}
+
                 <Footer
                     isSearch={isSearch}
                     isActiveBtn={services.length === 0 ? false : true}
@@ -302,31 +303,34 @@ function App() {
                     reverseServices={reverseServices}
                     sortServicesUp={sortServicesUp}
                     sortServicesDown={sortServicesDown}
-                    modalStorage={handelModalStorage} />                
-                
+                    modalStorage={handelModalStorage}
+                />
+
                 <Modal isOpen={modal} toggle={toggleModal}>
                     <ModalBody>
-                        Do you want to delete<br /> {modalMessage}?
+                        Do you want to delete
+                        <br /> {modalMessage}?
                     </ModalBody>
                     <ModalFooter>
                         <Button
                             color="primary"
                             size="sm"
-                            onClick={() => removeContent(removeId)}>
+                            onClick={() => removeContent(removeId)}
+                        >
                             Delete
                         </Button>{' '}
                         <Button
                             color="secondary"
                             size="sm"
-                            onClick={toggleModal}>
+                            onClick={toggleModal}
+                        >
                             Cancel
                         </Button>
                     </ModalFooter>
-                </Modal> 
-                        
-            </div> 
+                </Modal>
+            </div>
         </Layout>
-    ); 
+    );
 }
 
 export default App;

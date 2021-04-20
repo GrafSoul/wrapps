@@ -2,7 +2,7 @@
     "name": "wrapps",
     "productName": "WrappS",
     "description": "WrappS - Shell for working with various audio and video services",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/GrafSoul/wrapps.git"
