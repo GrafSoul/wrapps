@@ -98,7 +98,8 @@ function App() {
 
     const handleNewLinkForm = (event) => {
         event.preventDefault();
-        const proxyurl = 'https://cors.bridged.cc/';
+
+        // const proxyurl = 'https://cors-anywhere.herokuapp.com/';
         const inspectServices = services.find((service) => {
             let currentLink = link;
             if (currentLink[currentLink.length - 1] === '/')
